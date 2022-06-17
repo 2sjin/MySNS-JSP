@@ -10,13 +10,16 @@
 </head>
 
 <body>
+
 	<%
+		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
 		request.setCharacterEncoding("utf-8");	
 	
+		// HTTP로부터 파라미터 값 요청
 		String uid = request.getParameter("id");
 		String ups = request.getParameter("ps");
-	%>	
-	
+	%>
+		
 	<%-- 선언문 태그로 함수 선언 --%>
 	<%!
 		String getDate() {
@@ -24,11 +27,13 @@
 		}
 	%>
 	
+	<%-- 출력 --%>
+	<br>
 	<%= "user id: " + uid %>
 	<br>
 	<%= "password: " + ups %>
 	<br>
-	<%= "로그인 시간: " + getDate() %>
+	<%= "로그인 시간: " + getDate() %>	
 </body>
 
 </html>
