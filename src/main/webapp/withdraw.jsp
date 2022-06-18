@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="util.ConnectionPool" %>
+<%@ page import="util.UserDAO" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,27 +17,20 @@
 		// HTTP로부터 파라미터 값 요청
 		String uid = request.getParameter("id");
 		
-		// 데이터베이스 커넥션 풀 호출
-		Connection conn = ConnectionPool.get();
-
-		// SQL을 위한 PreparedStatement 객체 생성		
-		String sql = "DELETE FROM user WHERE id=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);		
-		stmt.setString(1, uid);
+		// UserDAO 객체 생성
+		UserDAO dao = new UserDAO();
 		
-		// DELETE 처리
-		int count = stmt.executeUpdate();
-		if (count == 1) {
+		// DELETE
+		if (dao.exists(uid) == false) {
+			out.print("회원 정보를 찾을 수 없습니다.");
+		}
+		else if (dao.delete(uid)) {
 			out.print("회원 탈퇴가 완료되었습니다.");
 			response.sendRedirect("userList.jsp");
 		}
 		else {
 			out.print("회원 탈퇴 중 오류가 발생하였습니다.");
 		}
-
-		// JDBC 객체 연결 해제
-		stmt.close();
-		conn.close();	
 	%>
 
 	

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="util.ConnectionPool" %>
+<%@ page import="util.UserDAO"%>
 <!DOCTYPE html>
 <html>
 
@@ -11,38 +10,29 @@
 
 <body>
 	<%
+		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
 		request.setCharacterEncoding("utf-8");
 	
+		// HTTP로부터 파라미터 값 요청
 		String uid = request.getParameter("id");
 		String upass = request.getParameter("ps");
 		String uname = request.getParameter("name");
 		
-		// 데이터베이스 커넥션 풀 호출
-		Connection conn = ConnectionPool.get();
+		// UserDAO 객체 생성
+		UserDAO dao = new UserDAO();
 
-		// SQL을 위한 PreparedStatement 객체 생성		
-		String sql = "INSERT INTO user(id, password, name) VALUES(?,?,?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);		
-		stmt.setString(1, uid);
-		stmt.setString(2, upass);
-		stmt.setString(3, uname);
-		
-		// INSERT 처리
-		int count = stmt.executeUpdate();
-		if (count == 1) {
+		// INSERT
+		if (dao.exists(uid) == true) {
+			out.print("이미 가입한 회원입니다.");
+		}
+		else if (dao.insert(uid, upass, uname)) {
 			out.print("회원가입이 완료되었습니다.");
 			response.sendRedirect("userList.jsp");
 		}
 		else {
 			out.print("회원가입 중 오류가 발생하였습니다.");
 		}
-
-		// JDBC 객체 연결 해제
-		stmt.close();
-		conn.close();	
 	%>
-
-	
 </body>
 
 </html>
