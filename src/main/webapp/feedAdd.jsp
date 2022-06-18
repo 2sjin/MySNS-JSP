@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>회원가입 성공</title>
+	<title>게시글 목록</title>
 </head>
 
 <body>
@@ -13,8 +13,7 @@
 		request.setCharacterEncoding("utf-8");
 	
 		String uid = request.getParameter("id");
-		String upass = request.getParameter("ps");
-		String uname = request.getParameter("name");
+		String ucon = request.getParameter("content");
 		
 		// JDBC 드라이버 로드
 		Class.forName("com.mysql.jdbc.Driver");
@@ -27,17 +26,17 @@
 		Statement stmt = conn.createStatement();
 		
 		// SQL 문장 실행
-		String sql = "INSERT INTO user(id, password, name) VALUES('";
-		sql += uid + "','" + upass + "','" + uname + "');";
+		String sql = "INSERT INTO feed(id, content) VALUES('";
+		sql += uid + "','" + ucon + "');";
 		
 		// INSERT 처리
 		int count = stmt.executeUpdate(sql);
 		if (count == 1) {
-			out.print("회원가입이 완료되었습니다.");
-			response.sendRedirect("userList.jsp");
+			out.print("작성 글의 업로드가 완료되었습니다.");
+			response.sendRedirect("main.jsp");
 		}
 		else {
-			out.print("회원가입 중 오류가 발생하였습니다.");
+			out.print("작성 글의 업로드 중 오류가 발생하였습니다.");
 		}
 
 		// JDBC 객체 연결 해제

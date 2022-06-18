@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>가입자 리스트</title>
+	<title>작성글 리스트</title>
 </head>
 
 <body>
@@ -28,31 +28,32 @@
 		Statement stmt = conn.createStatement();
 		
 		// SQL 문장 실행
-		String sql = "SELECT * FROM user;";
+		String sql = "SELECT * FROM feed;";
 		ResultSet result = stmt.executeQuery(sql);
 				
 		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
-		String str = "<table align=center border=1>";
-		str += "<tr><th colspan=3>가입자 리스트</th></tr>";
-		str += "<tr>";
-		str += "<th>아이디</th>";
-		str += "<th>비밀번호</th>";
-		str += "<th>이름</th>";
+		String str = "<table align=center>";
+
+		str += "<tr height=40>";
+			str += "<td><b>작성글 리스트</b></td>";	
+			str += "<td align=right><a href='feedAdd.html'><button>글쓰기</button></a></td>";
 		str += "</tr>";
 		
 		while( result.next() ) {
-			String col1 = result.getString(1);
-			String col2 = result.getString(2);
-			String col3 = result.getString(3);
-			
+			String col1 = result.getString(2);
+			String col2 = result.getString(3);
+			String col3 = result.getString(4);
+
+			str += "<tr><td colspan=2><hr></td></tr>";
 			str += "<tr>";
-			str += "<td>" + col1 + "</td>";
-			str += "<td>" + col2 + "</td>";
-			str += "<td>" + col3 + "</td>";
+				str += "<td><small>" + col1 + "</small></td>";
+				str += "<td><small>" + col3 + "</small></td>";
+			str += "</tr>";
+			str += "<tr>";
+				str += "<td>" + col2 + "</td>";
 			str += "</tr>";
 		}
-		str += "<table>";
-
+		str += "</table>";
 		out.print(str);
 		
 		// JDBC 객체 연결 해제

@@ -6,12 +6,14 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>로그인 성공</title>
 </head>
 
 <body>
 
 	<%
+		response.sendRedirect("main.jsp");
+	
 		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
 		request.setCharacterEncoding("utf-8");	
 	
