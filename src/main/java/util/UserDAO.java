@@ -5,12 +5,12 @@ import javax.naming.NamingException;
 public class UserDAO {
 	// INSERT
 	public boolean insert(String uid, String upass, String uname) throws NamingException, SQLException {
-		// µ¥ÀÌÅÍº£ÀÌ½º Ä¿³Ø¼Ç Ç® È£Ãâ
+		// ë°ì´í„°ë² ì´ìŠ¤ ì»¤ë„¥ì…˜ í’€ í˜¸ì¶œ
 		Connection conn = ConnectionPool.get();
 		PreparedStatement stmt = null;
 		
 		try {
-			// SQLÀ» À§ÇÑ PreparedStatement °´Ã¼ »ı¼º
+			// SQLì„ ìœ„í•œ PreparedStatement ê°ì²´ ìƒì„±
 			String sql = "INSERT INTO user(id, password, name) VALUES(?,?,?)";
 			stmt = conn.prepareStatement(sql);
 				
@@ -18,11 +18,11 @@ public class UserDAO {
 			stmt.setString(2, upass);
 			stmt.setString(3, uname);
 			
-			// SQL ½ÇÇà
+			// SQL ì‹¤í–‰
 			int count = stmt.executeUpdate();
 			return (count == 1) ? true : false;
 		} finally {
-			// JDBC °´Ã¼ ¿¬°á ÇØÁ¦
+			// JDBC ê°ì²´ ì—°ê²° í•´ì œ
             if (stmt != null) stmt.close(); 
             if (conn != null) conn.close();
 		}
@@ -30,23 +30,23 @@ public class UserDAO {
 	
 	// DELETE
 	public boolean delete(String uid) throws NamingException, SQLException {
-		// µ¥ÀÌÅÍº£ÀÌ½º Ä¿³Ø¼Ç Ç® È£Ãâ
+		// ë°ì´í„°ë² ì´ìŠ¤ ì»¤ë„¥ì…˜ í’€ í˜¸ì¶œ
 		Connection conn = ConnectionPool.get();
 		PreparedStatement stmt = null;
 		
 		try {
-			// SQLÀ» À§ÇÑ PreparedStatement °´Ã¼ »ı¼º
+			// SQLì„ ìœ„í•œ PreparedStatement ê°ì²´ ìƒì„±
 			String sql = "DELETE FROM user WHERE id=?";
 			stmt = conn.prepareStatement(sql);		
 			stmt.setString(1, uid);
 			
-			// SQL ½ÇÇà
+			// SQL ì‹¤í–‰
 			int count = stmt.executeUpdate();
 			return (count > 0) ? true : false;
 		} 
 		
 		finally {
-			// JDBC °´Ã¼ ¿¬°á ÇØÁ¦
+			// JDBC ê°ì²´ ì—°ê²° í•´ì œ
             if (stmt != null) stmt.close(); 
             if (conn != null) conn.close();
 		}
@@ -54,24 +54,55 @@ public class UserDAO {
 	
 	// EXISTS
 	public boolean exists(String uid) throws NamingException, SQLException {
-		// µ¥ÀÌÅÍº£ÀÌ½º Ä¿³Ø¼Ç Ç® È£Ãâ
+		// ë°ì´í„°ë² ì´ìŠ¤ ì»¤ë„¥ì…˜ í’€ í˜¸ì¶œ
 		Connection conn = ConnectionPool.get();
 		PreparedStatement stmt = null;
 		ResultSet result = null;
 		
 		try {
-			// SQLÀ» À§ÇÑ PreparedStatement °´Ã¼ »ı¼º
+			// SQLì„ ìœ„í•œ PreparedStatement ê°ì²´ ìƒì„±
 			String sql = "SELECT id FROM user WHERE id=?";
 			stmt = conn.prepareStatement(sql);		
 			stmt.setString(1, uid);
 			
-			// SELECT ÈÄ Æ©ÇÃÀÌ Á¸ÀçÇÏ¸é true, ¾øÀ¸¸é false ¸®ÅÏ
+			// SELECT í›„ íŠœí”Œì´ ì¡´ì¬í•˜ë©´ true, ì—†ìœ¼ë©´ false ë¦¬í„´
 			result = stmt.executeQuery();			
 			return result.next();
 		} 
 		
 		finally {
-			// JDBC °´Ã¼ ¿¬°á ÇØÁ¦
+			// JDBC ê°ì²´ ì—°ê²° í•´ì œ
+			if (result != null) result.close();
+            if (stmt != null) stmt.close(); 
+            if (conn != null) conn.close();
+		}
+	}
+	
+	// login(ë¡œê·¸ì¸ ë¹„ë°€ë²ˆí˜¸ í™•ì¸)
+	public int login(String uid, String upass) throws NamingException, SQLException {
+		// ë°ì´í„°ë² ì´ìŠ¤ ì»¤ë„¥ì…˜ í’€ í˜¸ì¶œ
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet result = null;
+		
+		try {
+			// SQLì„ ìœ„í•œ PreparedStatement ê°ì²´ ìƒì„±
+			String sql = "SELECT id, password FROM user WHERE id=?";
+			conn = ConnectionPool.get();
+			stmt = conn.prepareStatement(sql);		
+			stmt.setString(1, uid);
+			
+			// SELECT í›„ ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ ì—¬ë¶€ì— ë”°ë¥¸ ë¦¬í„´
+			result = stmt.executeQuery();
+			if (!result.next())	// ì•„ì´ë””ê°€ ì—†ì„ ë•Œ
+				return 1;
+			else if (!upass.equals(result.getString("password")))	// ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦´ ë•Œ
+				return 2;
+			return 0;	// ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸ ëª¨ë‘ ì¼ì¹˜í•  ë•Œ
+		}
+		
+		finally {
+			// JDBC ê°ì²´ ì—°ê²° í•´ì œ
 			if (result != null) result.close();
             if (stmt != null) stmt.close(); 
             if (conn != null) conn.close();
