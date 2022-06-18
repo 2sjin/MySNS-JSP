@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="util.ConnectionPool" %>
 <!DOCTYPE html>
 <html>
 
@@ -17,12 +18,8 @@
 		String uid = request.getParameter("id");
 		String ups = request.getParameter("ps");
 		
-		// JDBC 드라이버 로드
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		// 데이터베이스 연결
-		String URL = "jdbc:mysql://localhost:3306/mysns";
-		Connection conn = DriverManager.getConnection(URL, "root", "1111");
+		// 데이터베이스 커넥션 풀 호출
+		Connection conn = ConnectionPool.get();
 
 		// SQL을 위한 Statement 객체 생성		
 		Statement stmt = conn.createStatement();
