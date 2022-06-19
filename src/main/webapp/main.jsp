@@ -35,7 +35,7 @@
 			str += "</tr>";
 			
 			String img = feed.getImages();
-			if (img != null) {
+			if (img != null && !img.equals("")) {
 				str += "<tr>";
 				str += "<td><img src='Images/" + img + "' width=240></td>";
 				str += "</tr>";	

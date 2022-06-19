@@ -22,7 +22,7 @@
 		FeedDAO dao = new FeedDAO();	
 		
 		// INSERT 처리
-		if (dao.insert(uid, ucon) == true) {
+		if (dao.insert(uid, ucon, "") == true) {
 			out.print("작성 글의 업로드가 완료되었습니다.");
 			response.sendRedirect("main.jsp");
 		}

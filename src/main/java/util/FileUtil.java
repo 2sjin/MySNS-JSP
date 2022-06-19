@@ -1,9 +1,5 @@
 package util;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class FileUtil {
 	// static 함수이므로 객체 생성없이 바로 호출 가능함
@@ -15,8 +11,10 @@ public class FileUtil {
 		f = new File(root + "/" + fname);	// 파일 경로 완성 후 파일 객체 생성
 		
 		// 파일 저장
-		FileOutputStream out = new FileOutputStream(f);
-		out.write(data);
-		out.close();
+		if (!fname.equals("")) {
+			FileOutputStream out = new FileOutputStream(f);
+			out.write(data);
+			out.close();			
+		}
 	}
 }
