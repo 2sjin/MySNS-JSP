@@ -12,6 +12,11 @@
 
 <body>
 	<%	
+		String str = "<p align=right>";
+		str += "<a href='logout.jsp'>로그아웃</a>&nbsp;";
+		str += "<a href='withdraw.html'>회원탈퇴</a>";
+		str += "</p><br><br>";
+	
 		// FeedDAO 객체 생성
 		FeedDAO dao = new FeedDAO();	
 	
@@ -19,7 +24,7 @@
 		ArrayList<FeedObj> feeds = dao.getList();
 				
 		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
-		String str = "<table align=center>";
+		str += "<table align=center>";
 
 		str += "<tr height=40>";
 			str += "<td><b>작성글 리스트</b></td>";	

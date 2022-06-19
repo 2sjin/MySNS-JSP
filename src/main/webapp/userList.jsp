@@ -35,6 +35,7 @@
 			str += "</tr>";
 		}
 		str += "<table>";
+		str += "<p align=center><a href='login.html'><button>로그인하기</button></a></p>";
 
 		out.print(str);	
 	%>
