@@ -13,24 +13,12 @@ public class FeedObj {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 	public String getTs() {
 		return ts;
-	}
-
-	public void setTs(String ts) {
-		this.ts = ts;
 	}
 	
 }
