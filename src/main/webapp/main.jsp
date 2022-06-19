@@ -28,12 +28,21 @@
 		
 		for (FeedObj feed : feeds) {
 			str += "<tr><td colspan=2><hr></td></tr>";
+
 			str += "<tr>";
-				str += "<td><small>" + feed.getId() + "</small></td>";
-				str += "<td><small>" + feed.getTs() + "</small></td>";
+			str += "<td><small>" + feed.getId() + "</small></td>";
+			str += "<td><small>" + feed.getTs() + "</small></td>";
 			str += "</tr>";
+			
+			String img = feed.getImages();
+			if (img != null) {
+				str += "<tr>";
+				str += "<td><img src='Images/" + img + "' width=240></td>";
+				str += "</tr>";	
+			}
+			
 			str += "<tr>";
-				str += "<td>" + feed.getContent() + "</td>";
+			str += "<td>" + feed.getContent() + "</td>";
 			str += "</tr>";
 		}
 		str += "</table>";

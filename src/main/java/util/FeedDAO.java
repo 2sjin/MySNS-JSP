@@ -6,22 +6,24 @@ import javax.naming.NamingException;
 
 public class FeedDAO {
 	// INSERT
-	public boolean insert(String uid, String ucon) throws NamingException, SQLException {
+	public boolean insert(String uid, String ucon, String uimages) throws NamingException, SQLException {
 		// 데이터베이스 커넥션 풀 호출
 		Connection conn = ConnectionPool.get();
 		PreparedStatement stmt = null;
 		
 		try {
 			// SQL을 위한 PreparedStatement 객체 생성
-			String sql = "INSERT INTO feed(id, content) VALUES(?,?)";
+			String sql = "INSERT INTO feed(id, content, images) VALUES(?,?,?)";
 			stmt = conn.prepareStatement(sql);
 				
 			stmt.setString(1, uid);
 			stmt.setString(2, ucon);
+			stmt.setString(3, uimages);
 			
 			// SQL 실행
 			int count = stmt.executeUpdate();
 			return (count == 1) ? true : false;
+			
 		} finally {
 			// JDBC 객체 연결 해제
             if (stmt != null) stmt.close(); 
@@ -45,7 +47,8 @@ public class FeedDAO {
 				String col1 = result.getString("id");
 				String col2 = result.getString("content");
 				String col3 = result.getString("ts");
-				feeds.add(new FeedObj(col1, col2, col3));
+				String col4 = result.getString("images");
+				feeds.add(new FeedObj(col1, col2, col3, col4));
 			}
 			return feeds;
 			

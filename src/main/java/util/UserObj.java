@@ -9,16 +9,8 @@ public class UserObj {
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getName() {
-		return name;
-	}
+	public String getId() { return this.id; }
+	public String getPassword() { return this.password; }
+	public String getName() { return this.name; }
 	
 }
