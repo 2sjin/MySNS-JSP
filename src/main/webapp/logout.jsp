@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,10 +9,10 @@
 
 	<body>
 		<%
-			session.invalidate();	// ╪╪╪г цй╠Бх╜(╦П╣Г ╣╔юлем ╩Ха╕)
+			session.invalidate();	// Л└╦Л┘≤ Л╢┬Й╦╟М≥■(К╙╗К⌠═ К█╟Л²╢М└╟ Л┌╜Л═°)
 			
-			String str = "<p align=center><br>╥н╠в╬ф©Тю╩ ©о╥Аго©╢╫ю╢о╢ы.<br><br>";
-			str += "<a href='login.html'><button>╥н╠вюнго╠Б</button></a></p>";
+			String str = "<p align=center><br>К║°Й╥╦Л∙└Л⌡┐Л²└ Л≥└Кё▄М∙≤Л≤─Л┼╣К▀┬К▀╓.<br><br>";
+			str += "<a href='login.html'><button>К║°Й╥╦Л²╦М∙≤Й╦╟</button></a></p>";
 			out.print(str);
 		%>	
 	</body>
