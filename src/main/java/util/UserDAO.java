@@ -1,5 +1,7 @@
 package util;
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.naming.NamingException;
 
 public class UserDAO {
@@ -110,16 +112,30 @@ public class UserDAO {
 	}
 	
 	// SELECT 실행하여 가입자 리스트 리턴하기
-	public ResultSet getList() throws NamingException, SQLException {
-		// 데이터베이스 커넥션 풀 호출
-		Connection conn = ConnectionPool.get();
-
-		// SQL을 위한 Statement 객체 생성		
-		Statement stmt = conn.createStatement();
+	public ArrayList<UserObj> getList() throws NamingException, SQLException {
+		Connection conn = ConnectionPool.get();		// 데이터베이스 커넥션 풀 호출
+		PreparedStatement stmt = null;
+		ResultSet result = null;
 		
-		// SQL 문장 실행
-		String sql = "SELECT * FROM user;";
-		return stmt.executeQuery(sql);		
+		try {			
+			String sql = "SELECT * FROM user;";
+			stmt = conn.prepareStatement(sql);	// SQL을 위한 prepareStatement 객체 생성		
+			result = stmt.executeQuery();			// SQL 문장 실행
+			
+			ArrayList<UserObj> users = new ArrayList<UserObj>();
+			while(result.next()) {
+				String col1 = result.getString("id");
+				String col2 = result.getString("password");
+				String col3 = result.getString("name");
+				users.add(new UserObj(col1, col2, col3));
+			}
+			return users;
+			
+		} finally {
+	        if (result != null) stmt.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();			
+		}	
 	}
 	
 	

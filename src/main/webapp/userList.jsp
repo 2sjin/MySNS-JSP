@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="util.UserDAO"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="util.*"%>
 <!DOCTYPE html>
 <html>
 
@@ -12,10 +13,10 @@
 <body>
 	<%
 		// UserDAO 객체 생성
-		UserDAO dao = new UserDAO();	
+		UserDAO dao = new UserDAO();
 		
 		// 리스트 SELECT 결과 저장
-		ResultSet result = dao.getList();	
+		ArrayList<UserObj> users = dao.getList();
 	
 		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
 		String str = "<table align=center border=1>";
@@ -26,11 +27,11 @@
 		str += "<th>이름</th>";
 		str += "</tr>";
 		
-		while( result.next() ) {
+		for (UserObj user : users) {
 			str += "<tr>";
-			str += "<td>" + result.getString(1) + "</td>";
-			str += "<td>" + result.getString(2) + "</td>";
-			str += "<td>" + result.getString(3) + "</td>";
+			str += "<td>" + user.getId() + "</td>";
+			str += "<td>" + user.getPassword() + "</td>";
+			str += "<td>" + user.getName() + "</td>";
 			str += "</tr>";
 		}
 		str += "<table>";

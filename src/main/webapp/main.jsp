@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="util.FeedDAO"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="util.*"%>
 <!DOCTYPE html>
 <html>
 
@@ -13,9 +14,9 @@
 	<%	
 		// FeedDAO 객체 생성
 		FeedDAO dao = new FeedDAO();	
-		
+	
 		// 리스트 SELECT 결과 저장
-		ResultSet result = dao.getList();
+		ArrayList<FeedObj> feeds = dao.getList();
 				
 		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
 		String str = "<table align=center>";
@@ -25,18 +26,14 @@
 			str += "<td align=right><a href='feedAdd.html'><button>글쓰기</button></a></td>";
 		str += "</tr>";
 		
-		while( result.next() ) {
-			String col1 = result.getString(2);
-			String col2 = result.getString(3);
-			String col3 = result.getString(4);
-
+		for (FeedObj feed : feeds) {
 			str += "<tr><td colspan=2><hr></td></tr>";
 			str += "<tr>";
-				str += "<td><small>" + col1 + "</small></td>";
-				str += "<td><small>" + col3 + "</small></td>";
+				str += "<td><small>" + feed.getId() + "</small></td>";
+				str += "<td><small>" + feed.getTs() + "</small></td>";
 			str += "</tr>";
 			str += "<tr>";
-				str += "<td>" + col2 + "</td>";
+				str += "<td>" + feed.getContent() + "</td>";
 			str += "</tr>";
 		}
 		str += "</table>";
