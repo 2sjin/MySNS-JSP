@@ -108,4 +108,19 @@ public class UserDAO {
             if (conn != null) conn.close();
 		}
 	}
+	
+	// SELECT 실행하여 가입자 리스트 리턴하기
+	public ResultSet getList() throws NamingException, SQLException {
+		// 데이터베이스 커넥션 풀 호출
+		Connection conn = ConnectionPool.get();
+
+		// SQL을 위한 Statement 객체 생성		
+		Statement stmt = conn.createStatement();
+		
+		// SQL 문장 실행
+		String sql = "SELECT * FROM user;";
+		return stmt.executeQuery(sql);		
+	}
+	
+	
 }

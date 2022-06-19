@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="util.ConnectionPool" %>
+<%@ page import="util.FeedDAO"%>
 <!DOCTYPE html>
 <html>
 
@@ -10,23 +10,12 @@
 </head>
 
 <body>
-	<%
-		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
-		request.setCharacterEncoding("utf-8");	
-	
-		// HTTP로부터 파라미터 값 요청
-		String uid = request.getParameter("id");
-		String ups = request.getParameter("ps");
+	<%	
+		// FeedDAO 객체 생성
+		FeedDAO dao = new FeedDAO();	
 		
-		// 데이터베이스 커넥션 풀 호출
-		Connection conn = ConnectionPool.get();
-
-		// SQL을 위한 Statement 객체 생성		
-		Statement stmt = conn.createStatement();
-		
-		// SQL 문장 실행
-		String sql = "SELECT * FROM feed;";
-		ResultSet result = stmt.executeQuery(sql);
+		// 리스트 SELECT 결과 저장
+		ResultSet result = dao.getList();
 				
 		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
 		String str = "<table align=center>";
@@ -52,11 +41,6 @@
 		}
 		str += "</table>";
 		out.print(str);
-		
-		// JDBC 객체 연결 해제
-		result.close();
-		stmt.close();
-		conn.close();	
 	%>
 	
 </body>
