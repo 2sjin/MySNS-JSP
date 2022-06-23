@@ -38,6 +38,6 @@
         response.sendRedirect("main.jsp");
     }
     else {
-        out.print("작성 글의 업로드 중 오류가 발생하였습니다.");
+		out.print("<script> alert('작성 글의 업로드 중 오류가 발생하였습니다.'); location.href='feedAdd2.jsp'; </script>");
     }
 %>

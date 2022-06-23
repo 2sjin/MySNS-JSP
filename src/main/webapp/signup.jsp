@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>회원가입 성공</title>
+	<title>회원가입</title>
 </head>
 
 <body>
@@ -23,14 +23,13 @@
 
 		// INSERT
 		if (dao.exists(uid) == true) {
-			out.print("이미 가입한 회원입니다.");
+			out.print("<script> alert('이미 가입한 회원입니다.'); location.href='signup.html'; </script>");
 		}
 		else if (dao.insert(uid, upass, uname)) {
-			out.print("회원가입이 완료되었습니다.");
-			response.sendRedirect("userList.jsp");
+			out.print("<script> alert('회원가입이 완료되었습니다.'); location.href='userList.jsp'; </script>");
 		}
 		else {
-			out.print("회원가입 중 오류가 발생하였습니다.");
+			out.print("<script> alert('회원가입 중 오류가 발생하였습니다.'); location.href='signup.html'; </script>");
 		}
 	%>
 </body>

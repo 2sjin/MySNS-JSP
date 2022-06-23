@@ -6,7 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>회원탈퇴 완료</title>
+	<title>회원탈퇴</title>
 </head>
 
 <body>
@@ -22,14 +22,13 @@
 		
 		// DELETE
 		if (dao.exists(uid) == false) {
-			out.print("회원 정보를 찾을 수 없습니다.");
+			out.print("<script> alert('회원 정보를 찾을 수 없습니다.'); location.href='withdraw.html'; </script>");
 		}
 		else if (dao.delete(uid)) {
-			out.print("회원 탈퇴가 완료되었습니다.");
-			response.sendRedirect("userList.jsp");
+			out.print("<script> alert('회원 탈퇴가 완료되었습니다.'); location.href='userList.jsp'; </script>");
 		}
 		else {
-			out.print("회원 탈퇴 중 오류가 발생하였습니다.");
+			out.print("<script> alert('회원 탈퇴 중 오류가 발생하였습니다.'); location.href='withdraw.html'; </script>");
 		}
 	%>
 

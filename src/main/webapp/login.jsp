@@ -7,11 +7,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>로그인 성공</title>
+	<title>로그인</title>
 </head>
 
 <body>
-
 	<%	
 		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
 		request.setCharacterEncoding("utf-8");	
@@ -27,11 +26,12 @@
 		int code = dao.login(uid, upass);
 		
 		if (code == 1) {
-			out.print("존재하지 않는 아이디입니다.");
+			out.print("<script> alert('존재하지 않는 아이디입니다.'); location.href='login.html'; </script>");
+			
 			return;
 		}
 		else if (code == 2) {
-			out.print("비밀번호가 틀렸습니다.");
+			out.print("<script> alert('비밀번호가 틀렸습니다.'); location.href='login.html'; </script>");
 			return;
 		}
 		else {
