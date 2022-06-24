@@ -6,7 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>게시글 목록</title>
+	<title>게시글 작성</title>
 </head>
 
 <body>

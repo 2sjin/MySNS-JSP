@@ -11,15 +11,16 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>회원가입</title>
+	<title>게시글 작성</title>
 </head>
 
 <body>
 	<%
-		// POST request 시, 한글 깨짐 방지를 위한 인코딩 타입 설정
 		request.setCharacterEncoding("utf-8");
 	
-	    String uid = null, ucon = null, ufname = null;
+	    String uid = null;
+	    String ucon = null;
+	    String ufname = null;
 	    byte[] ufile = null;
 	
 	    ServletFileUpload sfu = new ServletFileUpload(new DiskFileItemFactory());
@@ -31,8 +32,8 @@
 	        String name = item.getFieldName();
 	        if(item.isFormField()) {
 	            String value = item.getString();
-	            if (name.equals("id")) uid = value;
-	            else if (name.equals("content")) ucon = value;
+	            if (name.equals("id")) uid = new String(value.getBytes("8859_1"), "utf-8");
+	            else if (name.equals("content")) ucon = new String(value.getBytes("8859_1"), "utf-8");
 	        }
 	        else {
 	            if (name.equals("image")) {
