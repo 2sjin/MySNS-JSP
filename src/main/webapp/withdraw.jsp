@@ -25,7 +25,7 @@
 			out.print("<script> alert('회원 정보를 찾을 수 없습니다.'); location.href='withdraw.html'; </script>");
 		}
 		else if (dao.delete(uid)) {
-			out.print("<script> alert('회원 탈퇴가 완료되었습니다.'); location.href='userList.jsp'; </script>");
+			out.print("<script> alert('회원 탈퇴가 완료되었습니다.'); location.href='login.html'; </script>");
 		}
 		else {
 			out.print("<script> alert('회원 탈퇴 중 오류가 발생하였습니다.'); location.href='withdraw.html'; </script>");

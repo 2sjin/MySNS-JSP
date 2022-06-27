@@ -26,7 +26,7 @@
 			out.print("<script> alert('이미 가입한 회원입니다.'); location.href='signup.html'; </script>");
 		}
 		else if (dao.insert(uid, upass, uname)) {
-			out.print("<script> alert('회원가입이 완료되었습니다.'); location.href='userList.jsp'; </script>");
+			out.print("<script> alert('회원가입이 완료되었습니다.'); location.href='login.html'; </script>");
 		}
 		else {
 			out.print("<script> alert('회원가입 중 오류가 발생하였습니다.'); location.href='signup.html'; </script>");
