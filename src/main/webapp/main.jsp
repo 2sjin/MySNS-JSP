@@ -8,52 +8,53 @@
 <head>
 	<meta charset="UTF-8">
 	<title>작성글 리스트</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/mainStyle.css">
+	<link rel="stylesheet" href="css/desc.css">
 </head>
 
 <body>
-	<%	
-		String str = "<p align=right>";
-		str += "<a href='logout.jsp'>로그아웃</a>&nbsp;";
-		str += "<a href='withdraw.html'>회원탈퇴</a>";
-		str += "</p><br><br>";
-	
-		// FeedDAO 객체 생성
-		FeedDAO dao = new FeedDAO();	
-	
-		// 리스트 SELECT 결과 저장
-		ArrayList<FeedObj> feeds = dao.getList();
-				
-		// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
-		str += "<table align=center>";
+	<div class="page-hdr">MySNS</div>
 
-		str += "<tr height=40>";
-			str += "<td><b>작성글 리스트</b></td>";	
-			str += "<td align=right><a href='feedAdd.html'><button>글쓰기</button></a></td>";
-		str += "</tr>";
+	<div class="page-menu">
+		<a href='logout.jsp'><button class="button">로그아웃</button></a>&nbsp;
+		<a href='withdraw.html'><button class="button">회원탈퇴</button></a>
+	</div>
+	<div class="page-body">
+		<div class="section pad-32 mtop-30">
+			<a href='feedAdd.html'><input type="submit" value="글쓰기"></a>
+		</div>
 		
-		for (FeedObj feed : feeds) {
-			str += "<tr><td colspan=2><hr></td></tr>";
-
-			str += "<tr>";
-			str += "<td><small>" + feed.getId() + "</small></td>";
-			str += "<td><small>" + feed.getTs() + "</small></td>";
-			str += "</tr>";
+		<div class="section pad-32 mbot-100">	
+			<%	
+				String str = "";
 			
-			String img = feed.getImages();
-			if (img != null && !img.equals("")) {
-				str += "<tr>";
-				str += "<td><img src='Images/" + img + "' width=240></td>";
-				str += "</tr>";	
-			}
+				// FeedDAO 객체 생성
+				FeedDAO dao = new FeedDAO();	
 			
-			str += "<tr>";
-			str += "<td>" + feed.getContent() + "</td>";
-			str += "</tr>";
-		}
-		str += "</table>";
-		out.print(str);
-	%>
+				// 리스트 SELECT 결과 저장
+				ArrayList<FeedObj> feeds = dao.getList();
+						
+				// 질의 결과(ResultSet) 처리 : HTML 테이블 표현
+				for (FeedObj feed : feeds) {
+					str += "<div class='page-feed'>";
+					str += "<div class='feedinfo'>";
+					str += "<span class='email'>" + feed.getId() + "</span>";
+					str += "<span class='date'>" + feed.getTs() + "</span></div>";
+					
+					String img = feed.getImages();
+					if (img != null && !img.equals("")) {
+						str += "<div class='feedimg'><img src='Images/" + img + "' class='imgsize'></div>";
+					}
+					str += "<div class='mtop-20 pad-16'>" + feed.getContent() + "</div>";
+					str += "</div>";
+				}
+				out.print(str);
+			%>
 	
+		</div>
+	</div>
+	<div class="page-footer">Copyright: mysns.com, 202x</div>
 </body>
 
 </html>

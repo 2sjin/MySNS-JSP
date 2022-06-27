@@ -1,0 +1,60 @@
+.page-menu {
+    z-index: 10;
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%; height: 54px;
+    line-height: 54px;
+    text-align: right;
+    font-size: 1.1em;
+}
+.page-menu .button {
+    float: right;
+    padding: 0;
+    margin-top: 7px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    width: 75px;
+    line-height: 36px;
+    text-align: center;
+    background-color: white;
+    color: #D44010;
+    border: 1px solid #D44010;
+    border-radius: 4px;
+}
+
+.page-feed {
+	border: 1px solid gray;
+	border-radius: 4px;
+	padding-bottom: 20px;
+	margin: 30px 0;
+}
+
+.page-feed .feedinfo {
+	border-bottom: 1px solid gray;
+	padding: 10px 16px;
+	margin-bottom: 20px;
+}
+
+.page-feed .feedinfo .email {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+.page-feed .feedinfo .date {
+	font-size: 85%;
+	float: right;
+}
+
+.page-feed .feedimg {
+	text-align: center;
+	border-bottom: 1px solid gray;
+	padding-bottom: 15px;
+}
+
+.imgsize {
+	width: 50%;
+	min-width: 200px;
+	max-width: 400px;
+}
+
+.mbot-100 { margin-bottom: 100px; }
